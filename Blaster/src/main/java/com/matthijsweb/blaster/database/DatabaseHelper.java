@@ -9,9 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
 
+    private static DatabaseHelper sInstance = null;
     private static final int DB_VERSION = 1;
-
     public static final String DB_NAME = "Blaster";
+
     public static final String TB_ROOMS = "Rooms";
     public static final String TB_ROOMREMOTES = "roomremotes";
     public static final String TB_TASKS = "remotetasks";
@@ -28,7 +29,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TB_SETTINGUSER = "usersettings";
     public static final String TB_COUNTRIES = "countries";
 
-    public DatabaseHelper(Context context) {
+    public static DatabaseHelper getInstance(Context context) {
+
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        // See this article for more information: http://bit.ly/6LRzfx
+        if (sInstance == null) {
+            sInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+
+
+    private DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 

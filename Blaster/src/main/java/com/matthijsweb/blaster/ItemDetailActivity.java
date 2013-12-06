@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.matthijsweb.blaster.database.DatabaseHelper;
+import com.matthijsweb.blaster.database.SyncDatabase;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -55,6 +57,7 @@ public class ItemDetailActivity extends FragmentActivity {
      * Tag used on log messages.
      */
     static final String TAG = "GCM Demo";
+    public static DatabaseHelper db;
 
     GoogleCloudMessaging gcm;
     Context context;
@@ -92,6 +95,7 @@ public class ItemDetailActivity extends FragmentActivity {
         }
 
         context = getApplicationContext();
+        db = DatabaseHelper.getInstance(context);
 
         // Check device for Play Services APK. If check succeeds, proceed with GCM registration.
         if (checkPlayServices()) {
@@ -106,6 +110,11 @@ public class ItemDetailActivity extends FragmentActivity {
         }
 
         Log.i("Blaster", regid);
+
+        SyncDatabase test = new SyncDatabase();
+        test.execute();
+
+        DatabaseHelper.getInstance(context);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.matthijsweb.blaster.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Matthijs on 30-11-13.
@@ -10,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper sInstance = null;
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 4;
     public static final String DB_NAME = "Blaster";
 
     public static final String TB_ROOMS = "Rooms";
@@ -27,6 +28,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String TB_PROVIDERS = "providers";
 
     public static final String TB_SETTINGUSER = "usersettings";
+    public static final String TB_TABLEUPDATES = "tableupdates";
     public static final String TB_COUNTRIES = "countries";
 
     public static DatabaseHelper getInstance(Context context) {
@@ -47,21 +49,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TB_ROOMS + " (id INTEGER PRIMARY KEY, name STRING, provider_id INTEGER)");
-        db.execSQL("CREATE TABLE " + TB_ROOMREMOTES + " (id INTEGER PRIMARY KEY, room_id INTEGER, remote_id INTEGER, task_id INTEGER");
-        db.execSQL("CREATE TABLE " + TB_TASKS + " (id INTEGER PRIMARY KEY, name STRING, description TEXT, buttonsarray TEXT");
+        db.execSQL("CREATE TABLE " + TB_ROOMS + " (id INTEGER PRIMARY KEY, name TEXT, provider_id INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_ROOMREMOTES + " (id INTEGER PRIMARY KEY, room_id INTEGER, remote_id INTEGER, task_id INTEGER, name TEXT)");
+        db.execSQL("CREATE TABLE " + TB_TASKS + " (id INTEGER PRIMARY KEY, name TEXT, description TEXT, buttonsarray TEXT, last_update INTEGER)");
 
-        db.execSQL("CREATE TABLE " + TB_REMOTES + " (id INTEGER PRIMARY KEY, manufacturer INTEGER, typenr INTEGER, last_update INTEGER)");
-        db.execSQL("CREATE TABLE " + TB_MANUFACTURERS + " (id INTEGER PRIMARY KEY, name STRING, last_update INTEGER)");
-        db.execSQL("CREATE TABLE " + TB_TYPES + " (id INTEGER PRIMARY KEY, manufacturer_id INTEGER, name STRING, last_update INTEGER)");
-        db.execSQL("CREATE TABLE " + TB_BUTTONS + " (id INTEGER PRIMARY KEY, name STRING, description TEXT, image STRING, last_update INTEGER)");
-        db.execSQL("CREATE TABLE " + TB_REMOTECODES + " (id INTEGER PRIMARY KEY, button_id INTEGER, code STRING, remote_id INTEGER, last_update INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_REMOTES + " (id INTEGER PRIMARY KEY, last_update INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_MANUFACTURERS + " (id INTEGER PRIMARY KEY, name TEXT, last_update INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_TYPES + " (id INTEGER PRIMARY KEY, manufacturer_id INTEGER, name TEXT, last_update INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_BUTTONS + " (id INTEGER PRIMARY KEY, name TEXT, description TEXT, image TEXT, last_update INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_REMOTECODES + " (id INTEGER PRIMARY KEY, button_id INTEGER, code TEXT, remote_id INTEGER, last_update INTEGER)");
 
-        db.execSQL("CREATE TABLE " + TB_GUIDE + " (id INTEGER PRIMARY KEY, provider_id INTEGER, name STRING, starttime INTEGER, endtime INTEGER, channel INTEGER, description TEXT ,last_update INTEGER)");
-        db.execSQL("CREATE TABLE " + TB_PROVIDERS + "(id INTEGER PRIMARY KEY, name STRING, country_id INTEGER, last_update INTEGER")
-        db.execSQL("CREATE TABLE " + TB_COUNTRIES + "(id INTEGER PRIMARY KEY, name STRING, last_update INTEGER");
+        db.execSQL("CREATE TABLE " + TB_GUIDE + " (id INTEGER PRIMARY KEY, provider_id INTEGER, name TEXT, starttime INTEGER, endtime INTEGER, channel INTEGER, description TEXT ,last_update INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_PROVIDERS + " (id INTEGER PRIMARY KEY, name TEXT, country_id INTEGER, last_update INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_COUNTRIES + " (id INTEGER PRIMARY KEY, name TEXT, last_update INTEGER)");
 
         db.execSQL("CREATE TABLE " + TB_SETTINGUSER + " (id INTEGER PRIMARY KEY, country_id INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_TABLEUPDATES + " (tablename TEXT, version INTEGER, last_update INTEGER)");
+
+        Log.i("Blaster", "created databases");
 
     }
 
@@ -79,6 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TB_PROVIDERS);
         db.execSQL("DROP TABLE IF EXISTS " + TB_COUNTRIES);
         db.execSQL("DROP TABLE IF EXISTS " + TB_SETTINGUSER);
+        db.execSQL("DROP TABLE IF EXISTS " + TB_TABLEUPDATES);
         onCreate(db);
     }
 

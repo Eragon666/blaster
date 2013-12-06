@@ -42,12 +42,15 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String... params) {
         try {
-            String tables[] = new String[]{"buttons", "countries", "providers", "remotecodes", "remotes", "tasks", "tvguide", "types"};
+            String tables[] = new String[]{DatabaseHelper.TB_BUTTONS, DatabaseHelper.TB_COUNTRIES, DatabaseHelper.TB_PROVIDERS, DatabaseHelper.TB_REMOTECODES,
+                    DatabaseHelper.TB_REMOTES, DatabaseHelper.TB_TASKS, DatabaseHelper.TB_GUIDE, DatabaseHelper.TB_TYPES, DatabaseHelper.TB_MANUFACTURERS};
             database = ItemDetailActivity.db.getWritableDatabase();
             syncDatabases(tables);
         } catch (Exception e) {
             Log.e(TAG, "Error while syncing database: " + e);
         }
+
+        database.close();
 
         return "Done";
     }
@@ -79,7 +82,7 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
             }
             else
             {
-                Log.e(TAG, "there is a problem, doesnt set lastupdate time");
+                Log.e(TAG, "there is a problem, doesnt set lastupdate time " + tablename);
             }
         }
     }

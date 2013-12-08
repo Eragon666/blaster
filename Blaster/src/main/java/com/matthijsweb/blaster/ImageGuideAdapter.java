@@ -19,8 +19,12 @@ public class ImageGuideAdapter extends BaseAdapter {
             R.drawable.channel_5, R.drawable.channel_6,
             R.drawable.channel_7, R.drawable.channel_8,
             R.drawable.channel_9, R.drawable.channel_10,
-            R.drawable.channel_16,R.drawable.channel_17,
-            R.drawable.channel_18,
+            R.drawable.channel_11,R.drawable.channel_13,
+            R.drawable.channel_13,R.drawable.channel_14,
+            R.drawable.channel_15,R.drawable.channel_16,
+            R.drawable.channel_17,R.drawable.channel_18,
+            R.drawable.channel_19,R.drawable.channel_20,
+            R.drawable.channel_21
     };
 
     public ImageGuideAdapter(Context c) {

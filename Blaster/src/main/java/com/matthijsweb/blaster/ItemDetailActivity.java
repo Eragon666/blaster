@@ -11,12 +11,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.GridView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.matthijsweb.blaster.database.DatabaseHelper;
-import com.matthijsweb.blaster.database.SyncDatabase;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -48,8 +48,7 @@ public class ItemDetailActivity extends FragmentActivity {
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     /**
-     * Substitute you own sender ID here. This is the project number you got
-     * from the API Console, as described in "Getting Started."
+     * Sender ID for the pus messages
      */
     String SENDER_ID = "772450734727";
 
@@ -109,12 +108,12 @@ public class ItemDetailActivity extends FragmentActivity {
             Log.i(TAG, "No valid Google Play Services APK found.");
         }
 
-        Log.i("Blaster", regid);
-
-        SyncDatabase test = new SyncDatabase();
-        test.execute();
-
         DatabaseHelper.getInstance(context);
+
+        GridView gridView = (GridView) findViewById(R.id.grid_view);
+
+        // Instance of ImageAdapter Class
+        gridView.setAdapter(new ImageGuideAdapter(this));
     }
 
     @Override
@@ -245,7 +244,7 @@ public class ItemDetailActivity extends FragmentActivity {
             @Override
             protected void onPostExecute(String msg) {
                // mDisplay.append(msg + "\n");
-                Log.i("Blaster Message", msg);
+                Log.i("Blaster", msg);
             }
         }.execute(null, null, null);
     }
@@ -279,40 +278,30 @@ public class ItemDetailActivity extends FragmentActivity {
                 Context.MODE_PRIVATE);
     }
     /**
-     * Sends the registration ID to your server over HTTP, so it can use GCM/HTTP or CCS to send
-     * messages to your app. Not needed for this demo since the device sends upstream messages
-     * to a server that echoes back the message using the 'from' address in the message.
+     * Sending the registration ID to the backend, so we can send push messages and validate the database sync.
      */
     private void sendRegistrationIdToBackend() {
         // Create a new HttpClient and Post Header
         HttpClient httpclient = new DefaultHttpClient();
         HttpPost httppost = new HttpPost("http://www.loginweb.nl/android/addclient.php");
 
-        //This is the data to send
-                String MyName = regid; //any data to send
+        String MyName = regid;
 
-                try {
-        // Add your data
-                    List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                    nameValuePairs.add(new BasicNameValuePair("action", MyName));
+        try {
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+            nameValuePairs.add(new BasicNameValuePair("action", MyName));
 
-                    httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-        // Execute HTTP Post Request
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            String response = httpclient.execute(httppost, responseHandler);
+            String reverseString = response;
+            Log.i("CRM", "response" + reverseString);
 
-                    ResponseHandler<String> responseHandler = new BasicResponseHandler();
-                    String response = httpclient.execute(httppost, responseHandler);
-
-        //This is the response from a php application
-                    String reverseString = response;
-                    Log.i("CRM", "response" + reverseString);
-
-                } catch (ClientProtocolException e) {
-                    Log.i("CRM", "CPE response " + e.toString());
-        // TODO Auto-generated catch block
-                } catch (IOException e) {
-                    Log.i("CRM", "IOE response " + e.toString());
-        // TODO Auto-generated catch block
-                }
+        } catch (ClientProtocolException e) {
+            Log.i("CRM", "CPE response " + e.toString());
+        } catch (IOException e) {
+            Log.i("CRM", "IOE response " + e.toString());
+        }
     }
 }

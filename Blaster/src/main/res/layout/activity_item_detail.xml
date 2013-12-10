@@ -11,13 +11,11 @@
     android:id="@+id/grid_view"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:numColumns="auto_fit"
-    android:columnWidth="100dp"
-    android:horizontalSpacing="30dp"
+    android:numColumns="2"
+    android:columnWidth="300dp"
+    android:horizontalSpacing="20dp"
     android:verticalSpacing="20dp"
-    android:gravity="center"
-    android:stretchMode="columnWidth"
-    android:scrollbars="vertical">
+    android:gravity="center">
     </GridView>
 
 </FrameLayout>

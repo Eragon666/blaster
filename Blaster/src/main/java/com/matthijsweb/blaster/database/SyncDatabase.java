@@ -43,7 +43,7 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... params) {
         try {
             String tables[] = new String[]{DatabaseHelper.TB_BUTTONS, DatabaseHelper.TB_COUNTRIES, DatabaseHelper.TB_PROVIDERS, DatabaseHelper.TB_REMOTECODES,
-                    DatabaseHelper.TB_REMOTES, DatabaseHelper.TB_TASKS, DatabaseHelper.TB_GUIDE, DatabaseHelper.TB_TYPES, DatabaseHelper.TB_MANUFACTURERS};
+                    DatabaseHelper.TB_REMOTES, DatabaseHelper.TB_TASKS, DatabaseHelper.TB_GUIDE, DatabaseHelper.TB_TYPES, DatabaseHelper.TB_MANUFACTURERS, DatabaseHelper.TB_CHANNELS};
             database = ItemDetailActivity.db.getWritableDatabase();
             syncDatabases(tables);
         } catch (Exception e) {
@@ -79,6 +79,7 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
             //Save the data to the database. If there was a error, don't change the latest update table.
             if (!saveToDatabase(JSONresult, tablename).equals("error")) {
                 setLatestUpdate(tablename);
+                Log.i("Blaster", "Synced " + tablename);
             }
             else
             {

@@ -11,7 +11,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper sInstance = null;
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 6;
     public static final String DB_NAME = "Blaster";
 
     public static final String TB_ROOMS = "Rooms";
@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TB_GUIDE = "tvguide";
     public static final String TB_PROVIDERS = "providers";
+    public static final String TB_CHANNELS = "channels";
 
     public static final String TB_SETTINGUSER = "usersettings";
     public static final String TB_TABLEUPDATES = "tableupdates";
@@ -61,6 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE " + TB_GUIDE + " (id INTEGER PRIMARY KEY, provider_id INTEGER, name TEXT, starttime INTEGER, endtime INTEGER, channel INTEGER, description TEXT ,last_update INTEGER)");
         db.execSQL("CREATE TABLE " + TB_PROVIDERS + " (id INTEGER PRIMARY KEY, name TEXT, country_id INTEGER, last_update INTEGER)");
+        db.execSQL("CREATE TABLE " + TB_CHANNELS + " (id INTEGER PRIMARY KEY, provider_id INTEGER, name TEXT, description TEXT, image TEXT, channel INTEGER,last_update INTEGER)");
         db.execSQL("CREATE TABLE " + TB_COUNTRIES + " (id INTEGER PRIMARY KEY, name TEXT, last_update INTEGER)");
 
         db.execSQL("CREATE TABLE " + TB_SETTINGUSER + " (id INTEGER PRIMARY KEY, country_id INTEGER)");
@@ -82,6 +84,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TB_REMOTECODES);
         db.execSQL("DROP TABLE IF EXISTS " + TB_GUIDE);
         db.execSQL("DROP TABLE IF EXISTS " + TB_PROVIDERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TB_CHANNELS);
         db.execSQL("DROP TABLE IF EXISTS " + TB_COUNTRIES);
         db.execSQL("DROP TABLE IF EXISTS " + TB_SETTINGUSER);
         db.execSQL("DROP TABLE IF EXISTS " + TB_TABLEUPDATES);

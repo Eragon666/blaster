@@ -1,11 +1,18 @@
 package com.matthijsweb.blaster;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageView;
+import android.widget.ImageButton;
+import android.widget.TextView;
+
+import com.matthijsweb.blaster.database.SupportFunctions;
+import com.matthijsweb.blaster.database.SyncDatabase;
+import com.matthijsweb.blaster.database.TvGuideFunctions;
+import com.matthijsweb.blaster.database.model.TvGuide;
 
 /**
  * Created by Matthijs on 7-12-13.
@@ -13,7 +20,7 @@ import android.widget.ImageView;
 public class ImageGuideAdapter extends BaseAdapter {
     private Context mContext;
 
-    public Integer[] mThumbIds = {
+    public static Integer[] tvGuideImages = {
             R.drawable.channel_1, R.drawable.channel_2,
             R.drawable.channel_3, R.drawable.channel_4,
             R.drawable.channel_5, R.drawable.channel_6,
@@ -27,19 +34,26 @@ public class ImageGuideAdapter extends BaseAdapter {
             R.drawable.channel_21
     };
 
+    public static String[][] tvGuideInfo = {
+    };
+
     public ImageGuideAdapter(Context c) {
         mContext = c;
-
+        Log.i("Blaster", "hallo test 1");
+        SyncDatabase sync = new SyncDatabase();
+        sync.execute();
+        TvGuideFunctions tvGuide = new TvGuideFunctions();
+        tvGuide.setTvGuideOverviewVars();
     }
 
     @Override
     public int getCount() {
-        return mThumbIds.length;
+        return tvGuideImages.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return mThumbIds[position];
+        return tvGuideImages[position];
     }
 
     @Override
@@ -49,11 +63,45 @@ public class ImageGuideAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView = new ImageView(mContext);
-        imageView.setImageResource(mThumbIds[position]);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(250, 250));
-        return imageView;
+        Log.i("Blaster", "TvGuideInfo = " + tvGuideInfo);
+
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        ViewHolder holder;
+
+        // if it's not recycled, initialize some attributes
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.tv_guide, null, true);
+            holder = new ViewHolder();
+            holder.image = (ImageButton) convertView
+                    .findViewById(R.id.tvGuide_button);
+            holder.text = (TextView) convertView
+                    .findViewById(R.id.tvGuide_text);
+            holder.time = (TextView) convertView
+                    .findViewById(R.id.textView);
+            convertView.setTag(holder);
+
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+
+        holder.image.setImageResource(tvGuideImages[position]);
+
+        try {
+            holder.text.setText(tvGuideInfo[position][1]);
+            holder.time.setText(tvGuideInfo[position][2] + " - " + tvGuideInfo[position][3]);
+        } catch (Exception E) {
+            Log.i("Blaster", "Error text " + E);
+        }
+
+
+        return convertView;
     }
 
+}
+
+class ViewHolder {
+    TextView text;
+    TextView time;
+    ImageButton image;
+    int position;
 }

@@ -2,7 +2,9 @@ package com.matthijsweb.blaster.database;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
+import com.matthijsweb.blaster.ImageGuideAdapter;
 import com.matthijsweb.blaster.ItemDetailActivity;
 import com.matthijsweb.blaster.database.model.Providers;
 import com.matthijsweb.blaster.database.model.TvGuide;
@@ -14,7 +16,7 @@ public class TvGuideFunctions {
 
     SQLiteDatabase database;
 
-    TvGuideFunctions() {
+    public TvGuideFunctions() {
         database = ItemDetailActivity.db.getReadableDatabase();
     }
 
@@ -55,6 +57,38 @@ public class TvGuideFunctions {
         return resultArray;
 
     }
+
+    public void setTvGuideOverviewVars() {
+        Log.i("Blaster", "hallo test 2");
+
+        String SQL = "SELECT * FROM " + DatabaseHelper.TB_CHANNELS;
+
+        Cursor result = database.rawQuery(SQL, new String[]{});
+
+        int i = 0;
+        String timestamp = SupportFunctions.getCurrentTimestamp();
+        Cursor guideResult;
+        String channel, starttime, endtime;
+
+        while (result.moveToNext()) {
+            Log.i("Blaster", "Loop test 1");
+            SQL = "SELECT id, name, starttime, endtime FROM tvguide WHERE channel = ? AND starttime <= ? AND endtime >= ? LIMIT 1";
+
+            channel = "" + result.getInt(result.getColumnIndex("id"));
+            starttime = "" + result.getInt(result.getColumnIndex("starttime"));
+            endtime = "" + result.getInt(result.getColumnIndex("endtime"));
+
+            guideResult = database.rawQuery(SQL, new String[]{channel, starttime, endtime});
+
+            ImageGuideAdapter.tvGuideInfo[i][0] = "" + guideResult.getInt(guideResult.getColumnIndex("id"));
+            ImageGuideAdapter.tvGuideInfo[i][1] = guideResult.getString(guideResult.getColumnIndex("name"));
+            ImageGuideAdapter.tvGuideInfo[i][2] = "" + guideResult.getInt(guideResult.getColumnIndex("starttime"));
+            ImageGuideAdapter.tvGuideInfo[i][3] = "" + guideResult.getInt(guideResult.getColumnIndex("endtime"));
+            i++;
+        }
+
+    }
+
 
     /**
      * Get the available providers in a country. Returns providers in a model.

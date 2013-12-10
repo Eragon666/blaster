@@ -69,23 +69,39 @@ public class TvGuideFunctions {
         String timestamp = SupportFunctions.getCurrentTimestamp();
         Cursor guideResult;
         String channel, starttime, endtime;
+        starttime = timestamp;
+        endtime = timestamp;
+
+        result.getCount();
+
+        String[][] temp = new String[result.getCount()][4];
 
         while (result.moveToNext()) {
             Log.i("Blaster", "Loop test 1");
-            SQL = "SELECT id, name, starttime, endtime FROM tvguide WHERE channel = ? AND starttime <= ? AND endtime >= ? LIMIT 1";
+            SQL = "SELECT id, name, starttime, endtime FROM " + DatabaseHelper.TB_GUIDE + " WHERE channel = ? AND starttime <= ? AND endtime >= ? LIMIT 1";
 
             channel = "" + result.getInt(result.getColumnIndex("id"));
-            starttime = "" + result.getInt(result.getColumnIndex("starttime"));
-            endtime = "" + result.getInt(result.getColumnIndex("endtime"));
 
             guideResult = database.rawQuery(SQL, new String[]{channel, starttime, endtime});
 
-            ImageGuideAdapter.tvGuideInfo[i][0] = "" + guideResult.getInt(guideResult.getColumnIndex("id"));
-            ImageGuideAdapter.tvGuideInfo[i][1] = guideResult.getString(guideResult.getColumnIndex("name"));
-            ImageGuideAdapter.tvGuideInfo[i][2] = "" + guideResult.getInt(guideResult.getColumnIndex("starttime"));
-            ImageGuideAdapter.tvGuideInfo[i][3] = "" + guideResult.getInt(guideResult.getColumnIndex("endtime"));
+            if (guideResult.moveToNext()) {
+
+                temp[i][0] = "" + guideResult.getInt(guideResult.getColumnIndex("id"));
+                temp[i][1] = guideResult.getString(guideResult.getColumnIndex("name"));
+                temp[i][2] = "" + guideResult.getInt(guideResult.getColumnIndex("starttime"));
+                temp[i][3] = "" + guideResult.getInt(guideResult.getColumnIndex("endtime"));
+            } else {
+                temp[i][0] = "";
+                temp[i][1] = "";
+                temp[i][2] = "";
+                temp[i][3] = "";
+            }
+
             i++;
         }
+        ImageGuideAdapter.tvGuideInfo = new String[result.getCount()][3];
+
+        ImageGuideAdapter.tvGuideInfo = temp;
 
     }
 

@@ -34,8 +34,7 @@ public class ImageGuideAdapter extends BaseAdapter {
             R.drawable.channel_21
     };
 
-    public static String[][] tvGuideInfo = {
-    };
+    public static String[][] tvGuideInfo;
 
     public ImageGuideAdapter(Context c) {
         mContext = c;
@@ -69,7 +68,7 @@ public class ImageGuideAdapter extends BaseAdapter {
         ViewHolder holder;
 
         // if it's not recycled, initialize some attributes
-        if (convertView == null) {
+        /*if (convertView == null) {*/
             convertView = inflater.inflate(R.layout.tv_guide, null, true);
             holder = new ViewHolder();
             holder.image = (ImageButton) convertView
@@ -80,9 +79,9 @@ public class ImageGuideAdapter extends BaseAdapter {
                     .findViewById(R.id.textView);
             convertView.setTag(holder);
 
-        } else {
+       /* } else {
             holder = (ViewHolder) convertView.getTag();
-        }
+        }*/
 
         holder.image.setImageResource(tvGuideImages[position]);
 

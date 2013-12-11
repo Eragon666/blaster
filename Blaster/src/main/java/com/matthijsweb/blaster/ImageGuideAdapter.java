@@ -14,6 +14,8 @@ import com.matthijsweb.blaster.database.SyncDatabase;
 import com.matthijsweb.blaster.database.TvGuideFunctions;
 import com.matthijsweb.blaster.database.model.TvGuide;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Matthijs on 7-12-13.
  */
@@ -85,13 +87,22 @@ public class ImageGuideAdapter extends BaseAdapter {
 
         holder.image.setImageResource(tvGuideImages[position]);
 
-        try {
+
+        //Give information for each channel, if no info in database for the current time, show a message.
+        if (tvGuideInfo.length > position && tvGuideInfo[position][1] != "") {
+            holder.text.setText(tvGuideInfo[position][1]);
+            holder.time.setText(new SimpleDateFormat("hh:mm").format(Integer.parseInt(tvGuideInfo[position][2])) + " - " + new SimpleDateFormat("hh:mm").format(Integer.parseInt(tvGuideInfo[position][3])));
+        } else {
+            holder.text.setText("Geen informatie beschikbaar");
+        };
+
+        /*try {
             holder.text.setText(tvGuideInfo[position][1]);
             holder.time.setText(tvGuideInfo[position][2] + " - " + tvGuideInfo[position][3]);
         } catch (Exception E) {
             Log.i("Blaster", "Error text " + E);
         }
-
+*/
 
         return convertView;
     }

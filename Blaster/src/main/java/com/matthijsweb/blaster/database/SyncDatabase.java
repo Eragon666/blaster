@@ -204,10 +204,7 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
 
                 // Try to insert new row into the database. If already exists (duplicate entry error), remove existing row and insert a new row
                 try {
-
                     database.execSQL(SQLinsert);
-
-                    Log.i(TAG, "SQL = " + SQLinsert);
                 } catch (SQLiteConstraintException e) {
 
                     if (!id.equals("")) {

@@ -18,12 +18,14 @@
         android:id="@+id/tvGuide_text"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvGuide_button"/>
+        android:layout_marginTop="160dp"
+        android:layout_marginLeft="5dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
-        android:layout_below="@+id/tvGuide_text"/>
+        android:layout_below="@+id/tvGuide_text"
+        android:layout_marginLeft="5dp"/>
 
 </RelativeLayout>

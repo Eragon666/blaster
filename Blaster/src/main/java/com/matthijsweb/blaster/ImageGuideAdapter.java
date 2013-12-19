@@ -40,7 +40,6 @@ public class ImageGuideAdapter extends BaseAdapter {
 
     public ImageGuideAdapter(Context c) {
         mContext = c;
-        Log.i("Blaster", "hallo test 1");
         SyncDatabase sync = new SyncDatabase();
         sync.execute();
         TvGuideFunctions tvGuide = new TvGuideFunctions();
@@ -64,7 +63,6 @@ public class ImageGuideAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Log.i("Blaster", "TvGuideInfo = " + tvGuideInfo);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         ViewHolder holder;

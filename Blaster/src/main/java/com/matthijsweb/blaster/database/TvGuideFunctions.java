@@ -59,7 +59,6 @@ public class TvGuideFunctions {
     }
 
     public void setTvGuideOverviewVars() {
-        Log.i("Blaster", "hallo test 2");
 
         String SQL = "SELECT * FROM " + DatabaseHelper.TB_CHANNELS;
 
@@ -77,7 +76,6 @@ public class TvGuideFunctions {
         String[][] temp = new String[result.getCount()][4];
 
         while (result.moveToNext()) {
-            Log.i("Blaster", "Loop test 1");
             SQL = "SELECT id, name, starttime, endtime FROM " + DatabaseHelper.TB_GUIDE + " WHERE channel = ? AND starttime <= ? AND endtime >= ? LIMIT 1";
 
             channel = "" + result.getInt(result.getColumnIndex("id"));

@@ -132,7 +132,7 @@ public class MenuActivity extends FragmentActivity
                 detailIntent.putExtra(TvGuideFragment.ARG_ITEM_ID, id);
                 startActivity(detailIntent);
             } else if (id.equals("2")) {
-                Intent detailIntent = new Intent(this, SettingsActivity.class);
+                Intent detailIntent = new Intent(this, RemoteActivity.class);
                 detailIntent.putExtra(TvGuideFragment.ARG_ITEM_ID, id);
                 startActivity(detailIntent);
             } else if (id.equals("3")) {

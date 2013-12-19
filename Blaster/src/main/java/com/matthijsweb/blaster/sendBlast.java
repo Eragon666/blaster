@@ -16,25 +16,65 @@ public class sendBlast {
     Method irWrite;
     SparseArray<String> irData;
     Context context;
+    // For phones without a IR blaster, just pretend you're sending something
+    Boolean dummy;
 
     public sendBlast(Context ctx) {
         context = ctx;
     }
 
+    public void setButtons() {
+        irData = new SparseArray<String>();
+        irData.put(
+                R.id.buttonPower,
+                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0020 0020 0040 0020 0020 0cce "));
+        irData.put(
+                R.id.buttonVolDown,
+                hex2dec("0000 0073 0000 000c 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0040 0020 0cae"));
+        irData.put(
+                R.id.buttonMute,
+                hex2dec("0000 0073 0000 000c 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0020 0020 0040 0040 0020 0cae"));
+        irData.put(
+                R.id.buttonVolUp,
+                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+        irData.put(
+                R.id.buttonTuner,
+                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+        irData.put(
+                R.id.buttonPhono,
+                hex2dec("0000 0073 0000 0020 0060 0020 0010 0010 0010 0010 0010 0020 0010 0020 0030 0020 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0020 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0020 0020 0020 0010 0010 0010 0010 0010 0010 0020 0020 0020 0020 0020 0020 0010 09AC"));
+        irData.put(
+                R.id.buttonCD,
+                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+        irData.put(
+                R.id.buttonAux,
+                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+    }
+
     public void irInit() {
-        irdaService = context.getSystemService("irda");
-        Class c = irdaService.getClass();
-        Class p[] = { String.class };
         try {
-            irWrite = c.getMethod("write_irsend", p);
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            irdaService = context.getSystemService("irda");
+            dummy = false;
+        } catch (Exception e) {
+            dummy = true;
+        }
+
+        try {
+
+            Class c = irdaService.getClass();
+            Class p[] = { String.class };
+            try {
+                irWrite = c.getMethod("write_irsend", p);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            dummy = true;
         }
     }
 
     public void irSend(String data) {
-        //String data = irData.get(view.getId());
-        if (data != null) {
+        if (data != null && !dummy) {
             try {
                 irWrite.invoke(irdaService, data);
             } catch (IllegalArgumentException e) {
@@ -43,6 +83,24 @@ public class sendBlast {
                 e.printStackTrace();
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    public void irSend(View view) {
+        if (!dummy) {
+            String data = irData.get(view.getId());
+            if (data != null) {
+                try {
+                    irWrite.invoke(irdaService, data);
+                    Log.i("Remote", "data" + data);
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

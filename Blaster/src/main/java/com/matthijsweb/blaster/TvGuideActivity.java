@@ -134,8 +134,6 @@ public class TvGuideActivity extends FragmentActivity {
 
     public void openTvGuideInfoActivity(View guideItem) {
 
-        Log.i("Houston", "we have arrived muthafackaas "+guideItem.getId());
-
         Intent i = new Intent(getApplicationContext(), TvGuideInfo.class);
         // passing array index
         i.putExtra("id", guideItem.getId());

@@ -62,44 +62,41 @@ public class ImageGuideAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        ViewHolder holder;
+        try {
 
-        // if it's not recycled, initialize some attributes
-        /*if (convertView == null) {*/
-            convertView = inflater.inflate(R.layout.tv_guide_item, null, true);
-            holder = new ViewHolder();
-            holder.image = (ImageButton) convertView
-                    .findViewById(R.id.tvGuide_button);
-            holder.image.setId(Integer.parseInt(tvGuideInfo[position][0]));
-            holder.text = (TextView) convertView
-                    .findViewById(R.id.tvGuide_text);
-            holder.time = (TextView) convertView
-                    .findViewById(R.id.textView);
-            convertView.setTag(holder);
+            LayoutInflater inflater = LayoutInflater.from(mContext);
+            ViewHolder holder;
 
-       /* } else {
-            holder = (ViewHolder) convertView.getTag();
-        }*/
+            // if it's not recycled, initialize some attributes
+            /*if (convertView == null) {*/
+                convertView = inflater.inflate(R.layout.tv_guide_item, null, true);
+                holder = new ViewHolder();
+                holder.image = (ImageButton) convertView
+                        .findViewById(R.id.tvGuide_button);
+                holder.image.setId(Integer.parseInt(tvGuideInfo[position][0]));
+                holder.text = (TextView) convertView
+                        .findViewById(R.id.tvGuide_text);
+                holder.time = (TextView) convertView
+                        .findViewById(R.id.textView);
+                convertView.setTag(holder);
 
-        holder.image.setImageResource(tvGuideImages[position]);
+           /* } else {
+                holder = (ViewHolder) convertView.getTag();
+            }*/
+
+            holder.image.setImageResource(tvGuideImages[position]);
 
 
-        //Give information for each channel, if no info in database for the current time, show a message.
-        if (tvGuideInfo.length > position && tvGuideInfo[position][1] != "") {
-            holder.text.setText(tvGuideInfo[position][1]);
-            holder.time.setText(new SimpleDateFormat("hh:mm").format(Integer.parseInt(tvGuideInfo[position][2])) + " - " + new SimpleDateFormat("hh:mm").format(Integer.parseInt(tvGuideInfo[position][3])));
-        } else {
-            holder.text.setText("Geen informatie beschikbaar");
-        };
-
-        /*try {
-            holder.text.setText(tvGuideInfo[position][1]);
-            holder.time.setText(tvGuideInfo[position][2] + " - " + tvGuideInfo[position][3]);
-        } catch (Exception E) {
-            Log.i("Blaster", "Error text " + E);
+            //Give information for each channel, if no info in database for the current time, show a message.
+            if (tvGuideInfo[position][1] != "") {
+                holder.text.setText(tvGuideInfo[position][1]);
+                holder.time.setText(new SimpleDateFormat("hh:mm").format(Integer.parseInt(tvGuideInfo[position][2])) + " - " + new SimpleDateFormat("hh:mm").format(Integer.parseInt(tvGuideInfo[position][3])));
+            } else {
+                holder.text.setText("Geen informatie beschikbaar");
+            };
+        } catch (Exception e) {
+            Log.e("Blaster", "Error" + e);
         }
-*/
 
         return convertView;
     }

@@ -49,7 +49,7 @@ public class TvGuideInfo extends FragmentActivity {
         GridView gridView = (GridView) findViewById(R.id.grid_view);
 
         // Instance of ImageAdapter Class
-        gridView.setAdapter(new TvInfoAdapter(this));
+        gridView.setAdapter(new TvInfoAdapter(this, SupportFunctions.getCurrentTimestamp(), provider_id, channel));
 
         ImageView imageView = (ImageView) findViewById(R.id.tvGuide_channel_pic);
         String correctAnswer = "channel_" + channel_id;

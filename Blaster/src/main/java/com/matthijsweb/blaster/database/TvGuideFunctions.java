@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.matthijsweb.blaster.ImageGuideAdapter;
 import com.matthijsweb.blaster.TvGuideActivity;
+import com.matthijsweb.blaster.TvInfoAdapter;
 import com.matthijsweb.blaster.database.model.Providers;
 import com.matthijsweb.blaster.database.model.TvGuide;
 
@@ -30,17 +31,15 @@ public class TvGuideFunctions {
      */
     public TvGuide[] getTvGuide(String start, String end, int provider_id, int channel) {
 
+        //Set time to 2030, and show all programs with a limit of 5
         if (end.equals("0")) {
             end = "1923936275";
-            Log.i("Blaster", "set time to enourmous int");
         }
 
         String SQL = "SELECT * FROM " + DatabaseHelper.TB_GUIDE + " WHERE channel = '" + channel + "' AND provider_id = '" + provider_id + "' " +
                 " AND endtime >= '" + start + "' AND endtime <='" + end + "' LIMIT 5";
 
         Cursor result = database.rawQuery(SQL, new String[]{});
-
-        Log.i("Blaster", "count = " + result.getCount());
 
         TvGuide guide;
         TvGuide[] resultArray = new TvGuide[result.getCount()];
@@ -56,6 +55,7 @@ public class TvGuideFunctions {
             guide.setChannel(result.getInt(result.getColumnIndex("channel")));
             guide.setDescription(result.getString(result.getColumnIndex("description")));
             guide.setEndtime(result.getInt(result.getColumnIndex("endtime")));
+            guide.setStarttime(result.getInt(result.getColumnIndex("starttime")));
             guide.setStarttime(result.getInt(result.getColumnIndex("starttime")));
 
             resultArray[i] = guide;
@@ -111,6 +111,12 @@ public class TvGuideFunctions {
         ImageGuideAdapter.tvGuideInfo = temp;
 
         result.close();
+
+    }
+
+    public void setTvGuideProgram(String start, int provider_id, int channel) {
+
+        TvInfoAdapter.programs = getTvGuide(start, "0", provider_id, channel);
 
     }
 

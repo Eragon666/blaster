@@ -67,22 +67,16 @@ public class ImageGuideAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             ViewHolder holder;
 
-            // if it's not recycled, initialize some attributes
-            /*if (convertView == null) {*/
-                convertView = inflater.inflate(R.layout.tv_guide_item, null, true);
-                holder = new ViewHolder();
-                holder.image = (ImageButton) convertView
-                        .findViewById(R.id.tvGuide_button);
-                holder.image.setId(Integer.parseInt(tvGuideInfo[position][0]));
-                holder.text = (TextView) convertView
-                        .findViewById(R.id.tvGuide_text);
-                holder.time = (TextView) convertView
-                        .findViewById(R.id.textView);
-                convertView.setTag(holder);
-
-           /* } else {
-                holder = (ViewHolder) convertView.getTag();
-            }*/
+            convertView = inflater.inflate(R.layout.tv_guide_item, null, true);
+            holder = new ViewHolder();
+            holder.image = (ImageButton) convertView
+                    .findViewById(R.id.tvGuide_button);
+            holder.image.setId(Integer.parseInt(tvGuideInfo[position][0]));
+            holder.text = (TextView) convertView
+                    .findViewById(R.id.tvGuide_text);
+            holder.time = (TextView) convertView
+                    .findViewById(R.id.textView);
+            convertView.setTag(holder);
 
             holder.image.setImageResource(tvGuideImages[position]);
 

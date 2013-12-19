@@ -6,14 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.matthijsweb.blaster.database.SyncDatabase;
 import com.matthijsweb.blaster.database.TvGuideFunctions;
 import com.matthijsweb.blaster.database.model.TvGuide;
 
-import java.text.SimpleDateFormat;
+import org.w3c.dom.Text;
 
 /**
  * Created by Matthijs on 19-12-13.
@@ -21,15 +20,15 @@ import java.text.SimpleDateFormat;
 public class TvInfoAdapter extends BaseAdapter {
     private Context mContext;
 
-    public TvInfoAdapter(Context c) {
+    public TvInfoAdapter(Context c, String start, int provider, int channel) {
         mContext = c;
         SyncDatabase sync = new SyncDatabase();
         sync.execute();
         TvGuideFunctions tvGuide = new TvGuideFunctions();
-        tvGuide.setTvGuideOverviewVars();
+        tvGuide.setTvGuideProgram(start, provider, channel);
     }
 
-    TvGuide[] programs;
+    public static TvGuide[] programs;
 
     @Override
     public int getCount() {
@@ -52,26 +51,31 @@ public class TvInfoAdapter extends BaseAdapter {
         try {
 
             LayoutInflater inflater = LayoutInflater.from(mContext);
-            ViewHolder holder;
+            ViewHolderInfo holder;
 
             // if it's not recycled, initialize some attributes
-            /*if (convertView == null) {*/
-            convertView = inflater.inflate(R.layout.tv_guide_item, null, true);
-            holder = new ViewHolder();
-            holder.image = (ImageButton) convertView
-                    .findViewById(R.id.tvGuide_button);
-            holder.image.setId(Integer.parseInt(tvGuideInfo[position][0]));
-            holder.text = (TextView) convertView
-                    .findViewById(R.id.tvGuide_text);
-            holder.time = (TextView) convertView
-                    .findViewById(R.id.textView);
-            convertView.setTag(holder);
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.tv_guide_info_item, null, true);
+                holder = new ViewHolderInfo();
+                holder.title = (TextView) convertView
+                        .findViewById(R.id.tvGuide_title);
+                holder.time = (TextView) convertView
+                        .findViewById(R.id.tvGuide_time);
+                holder.description = (TextView) convertView
+                        .findViewById(R.id.tvGuide_description);
+                holder.position = position;
+                convertView.setTag(holder);
 
-           /* } else {
-                holder = (ViewHolder) convertView.getTag();
-            }*/
+            } else {
+                holder = (ViewHolderInfo) convertView.getTag();
+            }
 
-            holder.image.setImageResource(tvGuideImages[position]);
+            if (programs[position] != null) {
+                holder.title.setText(programs[position].getName());
+                holder.time.setText("" + programs[position].getTimeString());
+                holder.description.setText(programs[position].getDescription());
+            }
+
         } catch (Exception e) {
             Log.e("Blaster", "Error" + e);
         }
@@ -82,9 +86,9 @@ public class TvInfoAdapter extends BaseAdapter {
 }
 
 class ViewHolderInfo {
-    TextView text;
+    TextView title;
     TextView time;
-    ImageButton image;
+    TextView description;
     int position;
 }
 

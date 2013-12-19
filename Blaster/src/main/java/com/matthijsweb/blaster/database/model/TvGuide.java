@@ -1,5 +1,7 @@
 package com.matthijsweb.blaster.database.model;
 
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Matthijs on 30-11-13.
  */
@@ -89,5 +91,9 @@ public class TvGuide {
 
     public void setLast_update(int last_update) {
         this.last_update = last_update;
+    }
+
+    public String getTimeString() {
+        return new SimpleDateFormat("DD-MM hh:mm").format(this.starttime) + " - " + new SimpleDateFormat("hh:mm").format(this.endtime);
     }
 }

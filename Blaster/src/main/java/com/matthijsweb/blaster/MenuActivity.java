@@ -112,7 +112,6 @@ public class MenuActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(String id) {
-        Log.i("Blaster", "string id = " + id);
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -133,7 +132,7 @@ public class MenuActivity extends FragmentActivity
                 detailIntent.putExtra(TvGuideFragment.ARG_ITEM_ID, id);
                 startActivity(detailIntent);
             } else if (id.equals("2")) {
-                Intent detailIntent = new Intent(this, TvGuideActivity.class);
+                Intent detailIntent = new Intent(this, SettingsActivity.class);
                 detailIntent.putExtra(TvGuideFragment.ARG_ITEM_ID, id);
                 startActivity(detailIntent);
             } else if (id.equals("3")) {

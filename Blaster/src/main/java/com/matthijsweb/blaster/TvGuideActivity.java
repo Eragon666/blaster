@@ -12,7 +12,10 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -111,12 +114,32 @@ public class TvGuideActivity extends FragmentActivity {
 
         DatabaseHelper.getInstance(context);
 
-
-
         GridView gridView = (GridView) findViewById(R.id.grid_view);
 
         // Instance of ImageAdapter Class
         gridView.setAdapter(new ImageGuideAdapter(this));
+
+        /**
+         * On Click event for Single Gridview Item
+         * */
+        gridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v,
+                                    int position, long id) {
+
+                //Log.i("position",position+"");
+                //Log.i("id",id+"");
+                //Log.i("id","------");
+
+                // Sending image id to FullScreenActivity
+                //Intent i = new Intent(getApplicationContext(), TvGuideInfo.class);
+                // passing array index
+                //i.putExtra("id", position);
+                //startActivity(i);
+            }
+        });
+
+
     }
 
     @Override

@@ -92,7 +92,7 @@ public class GcmIntentService extends IntentService {
                 this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, ItemDetailActivity.class), 0);
+                new Intent(this, TvGuideActivity.class), 0);
 
         String message = msg.getString("message");
 

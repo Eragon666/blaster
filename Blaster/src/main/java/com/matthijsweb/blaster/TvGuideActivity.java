@@ -36,12 +36,12 @@ import java.util.List;
  * An activity representing a single Item detail screen. This
  * activity is only used on handset devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
- * in a {@link ItemListActivity}.
+ * in a {@link MenuActivity}.
  * <p>
  * This activity is mostly just a 'shell' activity containing nothing
- * more than a {@link ItemDetailFragment}.
+ * more than a {@link TvGuideFragment}.
  */
-public class ItemDetailActivity extends FragmentActivity {
+public class TvGuideActivity extends FragmentActivity {
 
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
@@ -84,9 +84,9 @@ public class ItemDetailActivity extends FragmentActivity {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.
             Bundle arguments = new Bundle();
-            arguments.putString(ItemDetailFragment.ARG_ITEM_ID,
-                    getIntent().getStringExtra(ItemDetailFragment.ARG_ITEM_ID));
-            ItemDetailFragment fragment = new ItemDetailFragment();
+            arguments.putString(TvGuideFragment.ARG_ITEM_ID,
+                    getIntent().getStringExtra(TvGuideFragment.ARG_ITEM_ID));
+            TvGuideFragment fragment = new TvGuideFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.item_detail_container, fragment)
@@ -127,7 +127,7 @@ public class ItemDetailActivity extends FragmentActivity {
                 //
                 // http://developer.android.com/design/patterns/navigation.html#up-vs-back
                 //
-                NavUtils.navigateUpTo(this, new Intent(this, ItemListActivity.class));
+                NavUtils.navigateUpTo(this, new Intent(this, MenuActivity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -274,7 +274,7 @@ public class ItemDetailActivity extends FragmentActivity {
     private SharedPreferences getGcmPreferences(Context context) {
         // This sample app persists the registration ID in shared preferences, but
         // how you store the regID in your app is up to you.
-        return getSharedPreferences(ItemDetailActivity.class.getSimpleName(),
+        return getSharedPreferences(TvGuideActivity.class.getSimpleName(),
                 Context.MODE_PRIVATE);
     }
     /**

@@ -1,13 +1,12 @@
 package com.matthijsweb.blaster.database;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.matthijsweb.blaster.ItemDetailActivity;
+import com.matthijsweb.blaster.TvGuideActivity;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -44,7 +43,7 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
         try {
             String tables[] = new String[]{DatabaseHelper.TB_BUTTONS, DatabaseHelper.TB_COUNTRIES, DatabaseHelper.TB_PROVIDERS, DatabaseHelper.TB_REMOTECODES,
                     DatabaseHelper.TB_REMOTES, DatabaseHelper.TB_TASKS, DatabaseHelper.TB_GUIDE, DatabaseHelper.TB_TYPES, DatabaseHelper.TB_MANUFACTURERS, DatabaseHelper.TB_CHANNELS};
-            database = ItemDetailActivity.db.getWritableDatabase();
+            database = TvGuideActivity.db.getWritableDatabase();
             syncDatabases(tables);
         } catch (Exception e) {
             Log.e(TAG, "Error while syncing database: " + e);
@@ -173,7 +172,7 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
      */
     private String saveToDatabase(String response, String tablename) {
 
-        database = ItemDetailActivity.db.getWritableDatabase();
+        database = TvGuideActivity.db.getWritableDatabase();
 
         try {
             JSONArray array = new JSONArray(response);

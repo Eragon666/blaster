@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.matthijsweb.blaster.ImageGuideAdapter;
-import com.matthijsweb.blaster.ItemDetailActivity;
+import com.matthijsweb.blaster.TvGuideActivity;
 import com.matthijsweb.blaster.database.model.Providers;
 import com.matthijsweb.blaster.database.model.TvGuide;
 
@@ -17,7 +17,7 @@ public class TvGuideFunctions {
     SQLiteDatabase database;
 
     public TvGuideFunctions() {
-        database = ItemDetailActivity.db.getReadableDatabase();
+        database = TvGuideActivity.db.getReadableDatabase();
     }
 
     /**

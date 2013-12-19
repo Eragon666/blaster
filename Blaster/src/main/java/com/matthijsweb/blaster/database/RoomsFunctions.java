@@ -3,7 +3,7 @@ package com.matthijsweb.blaster.database;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.matthijsweb.blaster.ItemDetailActivity;
+import com.matthijsweb.blaster.TvGuideActivity;
 import com.matthijsweb.blaster.database.model.Rooms;
 
 /**
@@ -14,7 +14,7 @@ public class RoomsFunctions {
     SQLiteDatabase database;
 
     RoomsFunctions() {
-        database = ItemDetailActivity.db.getWritableDatabase();
+        database = TvGuideActivity.db.getWritableDatabase();
     }
 
     /**

@@ -1,9 +1,8 @@
 package com.matthijsweb.blaster.database;
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.matthijsweb.blaster.ItemDetailActivity;
+import com.matthijsweb.blaster.TvGuideActivity;
 
 /**
  * Created by Matthijs on 6-12-13.
@@ -13,7 +12,7 @@ public class configureRemotes {
     SQLiteDatabase database;
 
     public configureRemotes() {
-        database = ItemDetailActivity.db.getWritableDatabase();
+        database = TvGuideActivity.db.getWritableDatabase();
     }
 
     /**

@@ -38,7 +38,7 @@
         </receiver>
         <service android:name=".GcmIntentService" />
         <activity
-            android:name="com.matthijsweb.blaster.ItemListActivity"
+            android:name=".MenuActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -47,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.matthijsweb.blaster.ItemDetailActivity"
+            android:name=".TvGuideActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName=".ItemListActivity" >
             <meta-data

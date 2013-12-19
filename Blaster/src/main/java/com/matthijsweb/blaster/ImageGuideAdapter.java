@@ -1,7 +1,6 @@
 package com.matthijsweb.blaster;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.matthijsweb.blaster.database.SupportFunctions;
 import com.matthijsweb.blaster.database.SyncDatabase;
 import com.matthijsweb.blaster.database.TvGuideFunctions;
-import com.matthijsweb.blaster.database.model.TvGuide;
 
 import java.text.SimpleDateFormat;
 
@@ -69,7 +66,7 @@ public class ImageGuideAdapter extends BaseAdapter {
 
         // if it's not recycled, initialize some attributes
         /*if (convertView == null) {*/
-            convertView = inflater.inflate(R.layout.tv_guide, null, true);
+            convertView = inflater.inflate(R.layout.tv_guide_item, null, true);
             holder = new ViewHolder();
             holder.image = (ImageButton) convertView
                     .findViewById(R.id.tvGuide_button);

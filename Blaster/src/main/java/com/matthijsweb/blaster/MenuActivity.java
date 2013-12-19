@@ -3,6 +3,7 @@ package com.matthijsweb.blaster;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
 
 /**
@@ -58,6 +59,7 @@ public class MenuActivity extends FragmentActivity
      */
     @Override
     public void onItemSelected(String id) {
+        Log.i("Blaster", "string id = " + id);
         if (mTwoPane) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a

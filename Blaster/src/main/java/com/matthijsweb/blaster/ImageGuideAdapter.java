@@ -86,7 +86,6 @@ public class ImageGuideAdapter extends BaseAdapter {
 
             holder.image.setImageResource(tvGuideImages[position]);
 
-
             //Give information for each channel, if no info in database for the current time, show a message.
             if (tvGuideInfo[position][1] != "") {
                 holder.text.setText(tvGuideInfo[position][1]);

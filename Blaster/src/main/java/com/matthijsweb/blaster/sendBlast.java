@@ -1,7 +1,7 @@
-/*
 package com.matthijsweb.blaster;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 
@@ -10,11 +10,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-*/
-/**
-* Created by Matthijs on 6-12-13.
-*//*
 
 public class sendBlast {
     Object irdaService;
@@ -37,8 +32,8 @@ public class sendBlast {
         }
     }
 
-    public void irSend(View view) {
-        String data = irData.get(view.getId());
+    public void irSend(String data) {
+        //String data = irData.get(view.getId());
         if (data != null) {
             try {
                 irWrite.invoke(irdaService, data);
@@ -75,4 +70,3 @@ public class sendBlast {
     }
 
 }
-*/

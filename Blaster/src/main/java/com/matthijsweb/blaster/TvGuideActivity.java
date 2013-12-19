@@ -96,9 +96,14 @@ public class TvGuideActivity extends FragmentActivity {
         gridView.setAdapter(new ImageGuideAdapter(this));
 
         blaster = new sendBlast(context);
+        blaster.irInit();
     }
 
     @Override
+    /**
+     * Catch the volume up en volume down buttons and send them directly to the blaster to control
+     * your tv.
+     */
     public boolean dispatchKeyEvent(KeyEvent event) {
         int action = event.getAction();
         int keyCode = event.getKeyCode();
@@ -106,11 +111,13 @@ public class TvGuideActivity extends FragmentActivity {
             case KeyEvent.KEYCODE_VOLUME_UP:
                 if (action == KeyEvent.ACTION_UP) {
                     Log.i(TAG, "KEy UP");
+                    blaster.irSend(blaster.hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
                 }
                 return true;
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 if (action == KeyEvent.ACTION_DOWN) {
                     Log.i(TAG, "KEY DOWN");
+                    blaster.irSend(blaster.hex2dec("0000 0073 0000 000c 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0040 0020 0cae"));
                 }
                 return true;
             default:

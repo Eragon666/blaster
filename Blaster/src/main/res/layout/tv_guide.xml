@@ -10,8 +10,8 @@
 
         <GridView
         android:id="@+id/grid_view"
-        android:layout_width="fill_parent"
-        android:layout_height="533dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:numColumns="2"
         android:columnWidth="300dp"
         android:horizontalSpacing="20dp"

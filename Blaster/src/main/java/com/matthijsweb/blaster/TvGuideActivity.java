@@ -12,7 +12,10 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -131,4 +134,19 @@ public class TvGuideActivity extends FragmentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void openTvGuideInfoActivity(View guideItem) {
+
+        Log.i("Houston", "we have arrived muthafackaas "+guideItem.getId());
+
+        Intent i = new Intent(getApplicationContext(), TvGuideInfo.class);
+        // passing array index
+        i.putExtra("id", guideItem.getId());
+        startActivity(i);
+
+    }
+
+
 }
+
+

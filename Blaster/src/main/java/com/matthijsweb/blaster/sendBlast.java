@@ -1,3 +1,4 @@
+/*
 package com.matthijsweb.blaster;
 
 import android.content.Context;
@@ -10,9 +11,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+*/
 /**
 * Created by Matthijs on 6-12-13.
-*/
+*//*
+
 public class sendBlast {
     Object irdaService;
     Method irWrite;
@@ -72,3 +75,4 @@ public class sendBlast {
     }
 
 }
+*/

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 
@@ -17,8 +18,10 @@ public class TvGuideInfo extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tv_guide_info);
 
+        Log.i("Houston", "we have arrived muthafackaas");
+
         // get intent data
-        Intent i = getIntent();
+        //Intent i = getIntent();
 
         // Selected button id
         //int position = i.getExtras().getInt("id");

@@ -93,7 +93,7 @@ public class TvGuideActivity extends FragmentActivity {
 
         // Instance of ImageAdapter Class
         gridView.setAdapter(new ImageGuideAdapter(this));
-
+        Log.i("TEst","------");
         /**
          * On Click event for Single Gridview Item
          * */
@@ -102,9 +102,9 @@ public class TvGuideActivity extends FragmentActivity {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
 
-                //Log.i("position",position+"");
-                //Log.i("id",id+"");
-                //Log.i("id","------");
+                Log.i("position",position+"");
+                Log.i("id",id+"");
+                Log.i("id","------");
 
                 // Sending image id to FullScreenActivity
                 //Intent i = new Intent(getApplicationContext(), TvGuideInfo.class);

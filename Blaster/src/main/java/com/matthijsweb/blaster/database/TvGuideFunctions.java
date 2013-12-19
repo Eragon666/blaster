@@ -28,12 +28,19 @@ public class TvGuideFunctions {
      * @param channel
      * @return
      */
-    public TvGuide[] getTvGuide(int start, int end, int provider_id, int channel) {
+    public TvGuide[] getTvGuide(String start, String end, int provider_id, int channel) {
+
+        if (end.equals("0")) {
+            end = "1923936275";
+            Log.i("Blaster", "set time to enourmous int");
+        }
 
         String SQL = "SELECT * FROM " + DatabaseHelper.TB_GUIDE + " WHERE channel = '" + channel + "' AND provider_id = '" + provider_id + "' " +
-                " AND starttime >= '" + start + "' AND endtime <='" + end + "'";
+                " AND endtime >= '" + start + "' AND endtime <='" + end + "' LIMIT 5";
 
         Cursor result = database.rawQuery(SQL, new String[]{});
+
+        Log.i("Blaster", "count = " + result.getCount());
 
         TvGuide guide;
         TvGuide[] resultArray = new TvGuide[result.getCount()];
@@ -53,6 +60,8 @@ public class TvGuideFunctions {
 
             resultArray[i] = guide;
         }
+
+        result.close();
 
         return resultArray;
 
@@ -101,6 +110,8 @@ public class TvGuideFunctions {
 
         ImageGuideAdapter.tvGuideInfo = temp;
 
+        result.close();
+
     }
 
 
@@ -130,6 +141,8 @@ public class TvGuideFunctions {
             resultArray[i] = provider;
 
         }
+
+        result.close();
 
         return resultArray;
 

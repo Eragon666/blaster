@@ -61,6 +61,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ItemListActivity" />
         </activity>
+        <activity
+            android:name=".TvGuideInfo"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".ItemListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ItemListActivity" />
+        </activity>
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>

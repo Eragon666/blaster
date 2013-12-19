@@ -7,7 +7,7 @@
 
     <ImageButton
         android:id="@+id/tvGuide_button"
-        android:onClick="TvGuideInfo"
+        android:onClick="openTvGuideInfoActivity"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:scaleType="fitCenter"

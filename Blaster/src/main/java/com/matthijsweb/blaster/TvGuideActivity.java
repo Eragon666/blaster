@@ -93,28 +93,6 @@ public class TvGuideActivity extends FragmentActivity {
 
         // Instance of ImageAdapter Class
         gridView.setAdapter(new ImageGuideAdapter(this));
-        Log.i("TEst","------");
-        /**
-         * On Click event for Single Gridview Item
-         * */
-        gridView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v,
-                                    int position, long id) {
-
-                Log.i("position",position+"");
-                Log.i("id",id+"");
-                Log.i("id","------");
-
-                // Sending image id to FullScreenActivity
-                //Intent i = new Intent(getApplicationContext(), TvGuideInfo.class);
-                // passing array index
-                //i.putExtra("id", position);
-                //startActivity(i);
-            }
-        });
-
-
     }
 
     @Override
@@ -153,4 +131,19 @@ public class TvGuideActivity extends FragmentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void openTvGuideInfoActivity(View guideItem) {
+
+        Log.i("Houston", "we have arrived muthafackaas "+guideItem.getId());
+
+        Intent i = new Intent(getApplicationContext(), TvGuideInfo.class);
+        // passing array index
+        i.putExtra("id", guideItem.getId());
+        startActivity(i);
+
+    }
+
+
 }
+
+

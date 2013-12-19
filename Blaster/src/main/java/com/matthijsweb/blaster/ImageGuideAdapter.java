@@ -1,6 +1,7 @@
 package com.matthijsweb.blaster;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +71,7 @@ public class ImageGuideAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.image = (ImageButton) convertView
                     .findViewById(R.id.tvGuide_button);
+            holder.image.setId(Integer.parseInt(tvGuideInfo[position][0]));
             holder.text = (TextView) convertView
                     .findViewById(R.id.tvGuide_text);
             holder.time = (TextView) convertView

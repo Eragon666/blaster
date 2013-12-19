@@ -84,12 +84,12 @@ public class TvGuideFunctions {
 
             if (guideResult.moveToNext()) {
 
-                temp[i][0] = "" + guideResult.getInt(guideResult.getColumnIndex("id"));
+                temp[i][0] = "" + channel;
                 temp[i][1] = guideResult.getString(guideResult.getColumnIndex("name"));
                 temp[i][2] = "" + guideResult.getInt(guideResult.getColumnIndex("starttime"));
                 temp[i][3] = "" + guideResult.getInt(guideResult.getColumnIndex("endtime"));
             } else {
-                temp[i][0] = "";
+                temp[i][0] = "" + channel;
                 temp[i][1] = "";
                 temp[i][2] = "";
                 temp[i][3] = "";

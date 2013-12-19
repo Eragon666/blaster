@@ -71,14 +71,11 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
         for(String tablename: tables) {
             result = getLatestUpdate(tablename);
 
-            Log.i(TAG, "Table = " + tablename + ", last update = " + result[1] + ", version = " + result[0]);
-
             JSONresult = connectToSyncServer(tablename, result[1]);
 
             //Save the data to the database. If there was a error, don't change the latest update table.
             if (!saveToDatabase(JSONresult, tablename).equals("error")) {
                 setLatestUpdate(tablename);
-                Log.i("Blaster", "Synced " + tablename);
             }
             else
             {
@@ -151,8 +148,6 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
             // Execute HTTP Post Request
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             String response = httpclient.execute(httppost, responseHandler);
-
-            Log.i(TAG, "response" + response);
 
             return response;
 

@@ -1,6 +1,6 @@
 package com.matthijsweb.blaster;
 
-import android.util.Log;
+import android.content.Context;
 import android.util.SparseArray;
 import android.view.View;
 
@@ -17,13 +17,14 @@ public class sendBlast {
     Object irdaService;
     Method irWrite;
     SparseArray<String> irData;
+    Context context;
 
-    public sendBlast() {
-
+    public sendBlast(Context ctx) {
+        context = ctx;
     }
 
     public void irInit() {
-        irdaService = this.getSystemService("irda");
+        irdaService = context.getSystemService("irda");
         Class c = irdaService.getClass();
         Class p[] = { String.class };
         try {

@@ -48,6 +48,7 @@ public class TvGuideActivity extends FragmentActivity {
      */
     static final String TAG = "Blaster";
     public static DatabaseHelper db;
+    sendBlast blaster;
 
     Context context;
 
@@ -90,6 +91,8 @@ public class TvGuideActivity extends FragmentActivity {
 
         // Instance of ImageAdapter Class
         gridView.setAdapter(new ImageGuideAdapter(this));
+
+        blaster = new sendBlast(context);
     }
 
     @Override

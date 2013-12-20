@@ -105,7 +105,6 @@ public class sendBlast {
             if (data != null) {
                 try {
                     irWrite.invoke(irdaService, data);
-                    Log.i("Remote", "data" + data);
                 } catch (IllegalArgumentException e) {
                     e.printStackTrace();
                 } catch (IllegalAccessException e) {

@@ -13,6 +13,8 @@ import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
+import com.matthijsweb.blaster.database.DatabaseHelper;
+import com.matthijsweb.blaster.database.SyncDatabase;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
@@ -28,22 +30,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * An activity representing a list of Items. This activity
- * has different presentations for handset and tablet-size devices. On
- * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link TvGuideActivity} representing
- * item details. On tablets, the activity presents the list of items and
- * item details side-by-side using two vertical panes.
- * <p>
- * The activity makes heavy use of fragments. The list of items is a
- * {@link MenuFragment} and the item details
- * (if present) is a {@link TvGuideFragment}.
- * <p>
- * This activity also implements the required
- * {@link MenuFragment.Callbacks} interface
- * to listen for item selections.
+ * This is the 'main' activity of the application, with two buttons to the different activities.
+ * The connection with the server is made in this activity (receiving push messages, registration of device)
  */
 public class MenuActivity extends FragmentActivity
         implements MenuFragment.Callbacks {
@@ -57,6 +46,8 @@ public class MenuActivity extends FragmentActivity
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    public static DatabaseHelper db;
 
     /**
      * Sender ID for the pus messages
@@ -104,6 +95,14 @@ public class MenuActivity extends FragmentActivity
         } else {
             Log.i(TAG, "No valid Google Play Services APK found.");
         }
+
+        db = DatabaseHelper.getInstance(context);
+
+        DatabaseHelper.getInstance(context);
+
+        //Synchronize the database
+        SyncDatabase sync = new SyncDatabase();
+        sync.execute();
     }
 
     /**
@@ -145,6 +144,10 @@ public class MenuActivity extends FragmentActivity
         super.onResume();
         // Check device for Play Services APK.
         checkPlayServices();
+
+        //Synchronize the database
+        SyncDatabase sync = new SyncDatabase();
+        sync.execute();
     }
 
     /**

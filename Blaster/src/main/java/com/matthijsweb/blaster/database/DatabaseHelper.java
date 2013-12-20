@@ -11,7 +11,7 @@ import android.util.Log;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static DatabaseHelper sInstance = null;
-    private static final int DB_VERSION = 6;
+    private static final int DB_VERSION = 1;
     public static final String DB_NAME = "Blaster";
 
     public static final String TB_ROOMS = "Rooms";
@@ -67,8 +67,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE " + TB_SETTINGUSER + " (id INTEGER PRIMARY KEY, country_id INTEGER)");
         db.execSQL("CREATE TABLE " + TB_TABLEUPDATES + " (tablename TEXT, version INTEGER, last_update INTEGER)");
-
-        Log.i("Blaster", "created databases");
 
     }
 

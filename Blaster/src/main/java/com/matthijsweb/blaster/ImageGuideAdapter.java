@@ -38,8 +38,6 @@ public class ImageGuideAdapter extends BaseAdapter {
 
     public ImageGuideAdapter(Context c) {
         mContext = c;
-        SyncDatabase sync = new SyncDatabase();
-        sync.execute();
         TvGuideFunctions tvGuide = new TvGuideFunctions();
         tvGuide.setTvGuideOverviewVars();
     }

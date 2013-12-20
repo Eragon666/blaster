@@ -8,6 +8,7 @@ IR Blaster
 	*	[Libraries](#libraries)
 	*	[External data](#data)
 	*	[Compatibility](#compatibility)
+*   [Final](#final)
 *	[Design](#design)
 
 <a id="overview"></a>Overview
@@ -65,7 +66,20 @@ need the TV guide, there are some PHP/XML libraries for the TV guide so I will m
 ---------------------------------------
 As said before in the overview, the IR blaster isn't officialy supported (not in Android 4.3). So this app will only fully function on the Note 3 and maybe the
 other Samsung phones with the IR blaster. Because I really want to use this app at my home, I will design it for the Note 3 screensize (5,5 inch). I will try to
-also make it more or less compatible with smaller phones, but thats not my main priority. 
+also make it more or less compatible with smaller phones, but thats not my main priority.
+
+<a id="final"></a>Final
+=======================
+
+One of the main parts of my application was the synchronization with the online database. I made a online API (in PHP/mysql/json) to which the app could connect with a link
+and POST variables, and the server returns the new/ changed data (based on last_update timestamp).
+
+I also implemented a notification/ push service to send a message to the phone from my webserver.
+
+I used Android Studio for the development of the App and started with a Fragment Activity for tablets (menu and activity next to each other, and on seperate screens for smaller phones).
+
+Because the implementation of the syncing with the database was taking more time then expected I removed the option to choose which remote to use, at the moment it is only compatible with my
+own tv. For phones without a Remote Blaster, a dummy blaster is used so the app wont crash.
 
 <a id="design"></a>Design
 =========================

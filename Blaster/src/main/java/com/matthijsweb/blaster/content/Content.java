@@ -16,15 +16,11 @@ public class Content {
      */
     public static List<MenuItem> ITEMS = new ArrayList<MenuItem>();
 
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
     public static Map<String, MenuItem> ITEM_MAP = new HashMap<String, MenuItem>();
 
     static {
         addItem(new MenuItem("1", "TV Gids"));
         addItem(new MenuItem("2", "Afstandsbediening"));
-        addItem(new MenuItem("3", "Instellingen"));
     }
 
     private static void addItem(MenuItem item) {

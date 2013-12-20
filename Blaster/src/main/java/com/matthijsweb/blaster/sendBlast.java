@@ -23,6 +23,7 @@ public class sendBlast {
         context = ctx;
     }
 
+    //Set the buttons for the remote controller
     public void setButtons() {
         irData = new SparseArray<String>();
         irData.put(
@@ -51,6 +52,9 @@ public class sendBlast {
                 hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
     }
 
+    /**
+     * Initialize the ir blaster, and check if this phone is capable of sending IR blasts
+     */
     public void irInit() {
         try {
             irdaService = context.getSystemService("irda");
@@ -73,6 +77,10 @@ public class sendBlast {
         }
     }
 
+    /**
+     * Send the blast to the blaster with a String input
+     * @param data
+     */
     public void irSend(String data) {
         if (data != null && !dummy) {
             try {
@@ -87,6 +95,10 @@ public class sendBlast {
         }
     }
 
+    /**
+     * Send the blast to the blaster with a view input
+     * @param view
+     */
     public void irSend(View view) {
         if (!dummy) {
             String data = irData.get(view.getId());
@@ -105,6 +117,11 @@ public class sendBlast {
         }
     }
 
+    /**
+     * Change the hex value to a decimal value
+     * @param irData
+     * @return
+     */
     protected String hex2dec(String irData) {
         List<String> list = new ArrayList<String>(Arrays.asList(irData
                 .split(" ")));

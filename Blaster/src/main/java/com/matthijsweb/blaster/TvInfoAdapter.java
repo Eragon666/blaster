@@ -12,8 +12,6 @@ import com.matthijsweb.blaster.database.SyncDatabase;
 import com.matthijsweb.blaster.database.TvGuideFunctions;
 import com.matthijsweb.blaster.database.model.TvGuide;
 
-import org.w3c.dom.Text;
-
 /**
  * Created by Matthijs on 19-12-13.
  */

@@ -2,7 +2,6 @@ package com.matthijsweb.blaster.database;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.matthijsweb.blaster.ImageGuideAdapter;
 import com.matthijsweb.blaster.TvGuideActivity;

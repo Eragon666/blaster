@@ -21,9 +21,6 @@ public class TvGuideFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
     private Content.MenuItem mItem;
 
     /**
@@ -38,9 +35,6 @@ public class TvGuideFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
             mItem = Content.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
         }
     }
@@ -50,9 +44,6 @@ public class TvGuideFragment extends Fragment {
             Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_item_detail, container, false);
 
-        //((TextView) TextView.findViewById(R.id.mDisplay)).setText("yolo");
-
-        // Show the dummy content as text in a TextView.
         if (mItem != null) {
             //((TextView) rootView.findViewById(R.id.item_detail)).setText(mItem.content);
         }

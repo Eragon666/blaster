@@ -1,7 +1,9 @@
 package com.matthijsweb.blaster.database;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.matthijsweb.blaster.ImageGuideAdapter;
 import com.matthijsweb.blaster.MenuActivity;
@@ -46,6 +48,7 @@ public class TvGuideFunctions {
 
         int i = 0;
 
+        //Fill the model with all the info from the database
         while (result.moveToNext()) {
             guide = new TvGuide();
 
@@ -67,7 +70,11 @@ public class TvGuideFunctions {
 
     }
 
-    public void setTvGuideOverviewVars() {
+    /**
+     * Fill the tv guide overview vars in the imageGuideAdapter with data from the database
+     * @param context
+     */
+    public void setTvGuideOverviewVars(Context context) {
 
         String SQL = "SELECT * FROM " + DatabaseHelper.TB_CHANNELS;
 
@@ -83,7 +90,9 @@ public class TvGuideFunctions {
         result.getCount();
 
         String[][] temp = new String[result.getCount()][4];
+        Integer[] images = new Integer[result.getCount()];
 
+        //Search program info for each channel
         while (result.moveToNext()) {
             SQL = "SELECT id, name, starttime, endtime FROM " + DatabaseHelper.TB_GUIDE + " WHERE channel = ? AND starttime <= ? AND endtime >= ? LIMIT 1";
 
@@ -104,11 +113,17 @@ public class TvGuideFunctions {
                 temp[i][3] = "";
             }
 
+            images[i] = getImageId(context, result.getString(result.getColumnIndex("image")));
+
             i++;
         }
         ImageGuideAdapter.tvGuideInfo = new String[result.getCount()][3];
 
         ImageGuideAdapter.tvGuideInfo = temp;
+
+        ImageGuideAdapter.tvGuideImages = new Integer[result.getCount()];
+
+        ImageGuideAdapter.tvGuideImages = images;
 
         result.close();
 
@@ -118,6 +133,16 @@ public class TvGuideFunctions {
 
         TvInfoAdapter.programs = getTvGuide(start, "0", provider_id, channel);
 
+    }
+
+    /**
+     * Get the image id from the R folder
+     * @param context
+     * @param imageName
+     * @return
+     */
+    public static Integer getImageId(Context context, String imageName) {
+        return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
     }
 
 

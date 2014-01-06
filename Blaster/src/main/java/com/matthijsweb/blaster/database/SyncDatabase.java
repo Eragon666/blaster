@@ -182,6 +182,8 @@ public class SyncDatabase extends AsyncTask<String, Integer, String> {
                 String id = "";
                 String tmp;
 
+                //go through the json response and get all fields and there corresponding values and add
+                //them to strings so we can add them to the database
                 while(myIter.hasNext()){
                     try {
                         if (fields != "") {

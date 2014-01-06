@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.matthijsweb.blaster.database.SyncDatabase;
 import com.matthijsweb.blaster.database.TvGuideFunctions;
 
 import java.text.SimpleDateFormat;
@@ -20,26 +19,15 @@ import java.text.SimpleDateFormat;
 public class ImageGuideAdapter extends BaseAdapter {
     private Context mContext;
 
-    public static Integer[] tvGuideImages = {
-            R.drawable.channel_1, R.drawable.channel_2,
-            R.drawable.channel_3, R.drawable.channel_4,
-            R.drawable.channel_5, R.drawable.channel_6,
-            R.drawable.channel_7, R.drawable.channel_8,
-            R.drawable.channel_9, R.drawable.channel_10,
-            R.drawable.channel_11,R.drawable.channel_13,
-            R.drawable.channel_13,R.drawable.channel_14,
-            R.drawable.channel_15,R.drawable.channel_16,
-            R.drawable.channel_17,R.drawable.channel_18,
-            R.drawable.channel_19,R.drawable.channel_20,
-            R.drawable.channel_21
-    };
+    public static Integer[] tvGuideImages;
 
     public static String[][] tvGuideInfo;
 
     public ImageGuideAdapter(Context c) {
         mContext = c;
         TvGuideFunctions tvGuide = new TvGuideFunctions();
-        tvGuide.setTvGuideOverviewVars();
+        //fill the tv guide vars with info from the database
+        tvGuide.setTvGuideOverviewVars(c);
     }
 
     @Override
@@ -65,6 +53,7 @@ public class ImageGuideAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             ViewHolder holder;
 
+            //Find all views and save them in the holder
             convertView = inflater.inflate(R.layout.tv_guide_item, null, true);
             holder = new ViewHolder();
             holder.image = (ImageButton) convertView

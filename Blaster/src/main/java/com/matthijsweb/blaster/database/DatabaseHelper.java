@@ -49,6 +49,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    /**
+     * Create all the necessary database tables for the application
+     */
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TB_ROOMS + " (id INTEGER PRIMARY KEY, name TEXT, provider_id INTEGER)");
         db.execSQL("CREATE TABLE " + TB_ROOMREMOTES + " (id INTEGER PRIMARY KEY, room_id INTEGER, remote_id INTEGER, task_id INTEGER, name TEXT)");

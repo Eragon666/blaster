@@ -19,11 +19,13 @@ public class RemoteActivity extends FragmentActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_remote);
 
+        //Start the blaster class so we can send blasts to the TV
         blaster = new sendBlast(this);
         blaster.irInit();
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Add buttons to the screen
         blaster.setButtons();
     }
 

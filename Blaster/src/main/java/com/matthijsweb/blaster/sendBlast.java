@@ -5,6 +5,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.View;
 
+import com.matthijsweb.blaster.database.RemoteFunctions;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -26,30 +28,33 @@ public class sendBlast {
     //Set the buttons for the remote controller
     public void setButtons() {
         irData = new SparseArray<String>();
+
+        RemoteFunctions remote = new RemoteFunctions();
+
         irData.put(
                 R.id.buttonPower,
-                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0020 0020 0040 0020 0020 0cce "));
+                hex2dec(remote.getRemoteCode(1)));
         irData.put(
                 R.id.buttonVolDown,
-                hex2dec("0000 0073 0000 000c 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0040 0020 0cae"));
+                hex2dec(remote.getRemoteCode(12)));
         irData.put(
                 R.id.buttonMute,
-                hex2dec("0000 0073 0000 000c 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0020 0020 0040 0040 0020 0cae"));
+                hex2dec(remote.getRemoteCode(2)));
         irData.put(
                 R.id.buttonVolUp,
-                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+                hex2dec(remote.getRemoteCode(15)));
         irData.put(
                 R.id.buttonTuner,
-                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+                hex2dec(remote.getRemoteCode(3)));
         irData.put(
                 R.id.buttonPhono,
-                hex2dec("0000 0073 0000 0020 0060 0020 0010 0010 0010 0010 0010 0020 0010 0020 0030 0020 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0020 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0010 0020 0020 0020 0010 0010 0010 0010 0010 0010 0020 0020 0020 0020 0020 0020 0010 09AC"));
+                hex2dec(remote.getRemoteCode(4)));
         irData.put(
                 R.id.buttonCD,
-                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+                hex2dec(remote.getRemoteCode(5)));
         irData.put(
                 R.id.buttonAux,
-                hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+                hex2dec(remote.getRemoteCode(6)));
     }
 
     /**

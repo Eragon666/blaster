@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.GridView;
 
 import com.matthijsweb.blaster.database.DatabaseHelper;
+import com.matthijsweb.blaster.database.RemoteFunctions;
 
 public class TvGuideActivity extends FragmentActivity {
     /**
@@ -63,15 +64,18 @@ public class TvGuideActivity extends FragmentActivity {
     public boolean dispatchKeyEvent(KeyEvent event) {
         int action = event.getAction();
         int keyCode = event.getKeyCode();
+
+        RemoteFunctions remote = new RemoteFunctions();
+
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
                 if (action == KeyEvent.ACTION_UP) {
-                    blaster.irSend(blaster.hex2dec("0000 0073 0000 000c 0020 0020 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0020 0020 0cce"));
+                    blaster.irSend(blaster.hex2dec(remote.getRemoteCode(15)));
                 }
                 return true;
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 if (action == KeyEvent.ACTION_DOWN) {
-                    blaster.irSend(blaster.hex2dec("0000 0073 0000 000c 0020 0020 0040 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0020 0040 0040 0020 0020 0020 0020 0040 0020 0cae"));
+                    blaster.irSend(blaster.hex2dec(remote.getRemoteCode(12)));
                 }
                 return true;
             default:

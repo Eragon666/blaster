@@ -15,7 +15,7 @@ import com.matthijsweb.blaster.database.model.TvGuide;
 
 
 /**
- * Created by tj on 19-12-13.
+ * Created by matthijs on 19-12-13.
  */
 public class TvGuideInfo extends FragmentActivity {
 
@@ -46,7 +46,7 @@ public class TvGuideInfo extends FragmentActivity {
 
         GridView gridView = (GridView) findViewById(R.id.grid_view);
 
-        // Instance of ImageAdapter Class
+        // Instance of TvInfoAdapter Class
         gridView.setAdapter(new TvInfoAdapter(this, SupportFunctions.getCurrentTimestamp(), provider_id, channel));
 
         ImageView imageView = (ImageView) findViewById(R.id.tvGuide_channel_pic);

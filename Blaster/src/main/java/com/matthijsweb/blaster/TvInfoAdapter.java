@@ -69,6 +69,7 @@ public class TvInfoAdapter extends BaseAdapter {
             }
 
             if (programs[position] != null) {
+                Log.i("Blaster", "title = " + programs[position].getName());
                 holder.title.setText(programs[position].getName());
                 holder.time.setText("" + programs[position].getTimeString());
                 holder.description.setText(programs[position].getDescription());
